@@ -1,5 +1,8 @@
 #!/bin/bash
 
+git commit -am "update"
+git push origin master
+
 npm run build
 
 cp -R dist dist_temp

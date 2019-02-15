@@ -11,7 +11,7 @@
         <nav>
             <ul>
                 <li v-for="(resource, index) in resources" :key="resource.name">
-                    <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }">{{resource.caption}}</router-link>
+                    <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }" v-if="resource.name != 'indexes'">{{resource.caption}}</router-link>
                 </li>  
             </ul>
         </nav>
