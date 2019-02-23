@@ -16,8 +16,8 @@
                         </div>
                         <ul v-if="filter.type=='checkbox'">
                             <li v-for="option in filter.options" :key="option.name">
-                                <input type="checkbox" v-model="option.selected" @change="filterChanged()">
-                                <label>{{option.caption}}</label>
+                                <input type="checkbox" v-model="option.selected" @change="filterChanged()" :id="option.name">
+                                <label :for="option.name">{{option.caption}}</label>
                             </li>
                         </ul>
                     </li>
