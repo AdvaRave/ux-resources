@@ -12,8 +12,8 @@
         </div>
         <nav v-show="!isMobile || (isMobile && mobileMenuShown)">
             <ul>
-                <li v-for="resource in resources" :key="resource.name">
-                    <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }" v-if="resource.name != 'indexes'" @click.native="menuOptionUsed()">{{resource.caption}}</router-link>
+                <li v-for="resource in resources" :key="resource.name" v-if="resource.name != 'indexes'">
+                    <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }" @click.native="menuOptionUsed()">{{resource.caption}}</router-link>
                 </li>
                 <li v-show="isMobile">
                     <a href="https://advarave.github.io/" target="_blank">About Me</a>
