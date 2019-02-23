@@ -8,7 +8,7 @@
             <span v-show="!isMobile">
                 <a href="https://advarave.github.io/" target="_blank">About Me</a>
             </span>
-            <a class="filter" v-show="isMobile" @click="filterMenuToggle()"><i class="fas fa-filter"></i></a>
+            <a class="filter" v-show="isMobile && $route.params.name" @click="filterMenuToggle()"><i class="fas fa-filter"></i></a>
         </div>
         <nav v-show="!isMobile || (isMobile && mobileMenuShown)">
             <ul>
@@ -54,7 +54,7 @@
             window.addEventListener('resize', function(e) {
                 this.isMobile = (e.target.outerWidth <= maxMobileWidth);
             });
-        },
+        }
     };
 </script>
 
