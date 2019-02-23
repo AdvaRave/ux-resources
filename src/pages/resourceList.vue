@@ -1,29 +1,34 @@
 <template>
-    <div :class="{'component': showResource}">
-        <h2>{{resource.caption}}</h2>
+    <div :class="{'component': showResource, mobile: isMobile}">
+        <h2>
+            <span>{{resource.caption}}</span>
+            <a @click="toggleExpandAll()" v-show="shownItems.length">{{ expandAll ? 'Collapse All' : 'Expand All' }}</a>
+        </h2>
         <section>
             <div class="filters" v-if="resource.filters && resource.filters.length">
                 <h3>Filter</h3>
                 <ul>
-                    <li v-for="(filter, index) in resource.filters" :key="filter.name">
+                    <li v-for="filter in resource.filters" :key="filter.name">
                         <h5>{{filter.caption}}</h5>
                         <div class="range" v-if="filter.type=='range'">
                             <label>${{filter.selectedRange[0]}} - ${{filter.selectedRange[1]}}</label>
                             <vue-slider v-model="filter.selectedRange" :min="filter.min" :max="filter.max" :tooltip="false" :height="13" :dot-size="13" :sliderStyle="[{'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}, {'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}]" :process-style="{'backgroundColor':'#6963e0'}" @callback="filterChanged()"></vue-slider>
                         </div>
                         <ul v-if="filter.type=='checkbox'">
-                            <li v-for="(option, index) in filter.options" :key="option.name">
+                            <li v-for="option in filter.options" :key="option.name">
                                 <input type="checkbox" v-model="option.selected" @change="filterChanged()">
                                 <label>{{option.caption}}</label>
                             </li>
                         </ul>
                     </li>
                 </ul>
+
+                <a v-show="isMobile" @click="mobileCloseFilters()">Done</a>
             </div>
             <div class="resources">
                 <ul>
-                    <li v-for="(item, index) in shownItems" :key="item.url">
-                        <small class="price" ng-show="resource.showPrice">{{item.price ? '$' + item.price : 'Free'}}</small>
+                    <li v-for="item in shownItems" :key="item.url">
+                        <small class="price" v-show="resource.showPrice">{{(item.price && item.price > 0) ? '$' + item.price : 'Free'}}</small>
                         <a v-bind:href="item.url" target="_blank">
                             <div class="img" v-bind:style="{ backgroundImage: 'url(' + item.logo + ')' }"></div>
                             <h5>{{item.title}}</h5>
@@ -47,6 +52,8 @@
 <script>
     import vueSlider from 'vue-slider-component';
 
+    const maxMobileWidth = 1024;
+
     export default {
         name: 'resourceList',
         data: function() {
@@ -58,12 +65,17 @@
 
                     return {
                         resource: resource,
-                        shownItems: JSON.parse(JSON.stringify(currResource.items || []))
+                        shownItems: JSON.parse(JSON.stringify(currResource.items || [])),
+                        expandAll: false,
+                        isMobile: (window.outerWidth <= maxMobileWidth)
                     }
                 }
             }
         },
         methods: {
+            mobileCloseFilters: function() {
+                document.body.classList = '';
+            },
             filterChanged: function() {
                 let newItems = [];
 
@@ -108,6 +120,14 @@
                 }
 
                 this.shownItems = newItems;
+            },
+            toggleExpandAll: function() {
+                this.expandAll = !this.expandAll;
+
+                for (var j=0; j<this.shownItems.length; j++) {
+                    let item = this.shownItems[j];
+                    item.showDesc = this.expandAll;
+                }
             }
         },
         components: {
@@ -140,11 +160,65 @@
         }
     }
 
+    .mobile {
+        position: relative;
+
+        section {
+            padding: 0;
+
+            .filters {
+                display: none;
+                padding: 20px 20%;
+                width: 60%;
+
+                > a {
+                    display: block;
+                    color: $caption-purple;
+                    margin-top: 20px;
+                    font-size: 18px;
+                }
+            }
+
+            .resources {
+                float: none;
+                width: 100%;
+                padding: 0;
+                display: inline-block;
+                text-align: center;
+                padding-top: 40px;
+
+                .no-match {
+                    width: 80%;
+                    display: inline-block;
+                }
+            }
+        }
+
+        h2 {
+            margin: 0 50px;
+
+            a {
+                position: absolute;
+                top: 0;
+                right: 10px;
+            }
+        }
+    }
+
     h2 {
-        margin: 0 100px;
+        margin: 0;
         padding: 30px 0;
         border-bottom: 1px solid $light-gray;
-        text-align: left;
+        text-align: center;
+
+        a {
+            float: right;
+            font-size: 14px;
+            color: $caption-purple;
+            line-height: 32px;
+            position: relative;
+            right: 40px;
+        }
     }
 
     section {
@@ -155,7 +229,7 @@
             display: inline-block;
             float: left;
             width: 20%;
-            
+
             h3 {
                 font-size: 16px;
                 font-weight: 700;
@@ -200,7 +274,6 @@
 
         .resources {
             float: right;
-            text-align: center;
             display: inline-block;
             padding: 0 0 0 100px;
             box-sizing: border-box;

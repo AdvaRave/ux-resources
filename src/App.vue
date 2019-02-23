@@ -25,6 +25,22 @@
         font-family: 'Nunito', sans-serif;
         font-size: 16px;
         color: $text-default;
+
+        &.mobile-menu-shown, {
+            main {
+                display: none;
+            }
+        }
+
+        &.filter-menu-shown {
+            .filters {
+                display: inline-block !important;
+            }
+
+            .resources, h2 {
+                display: none !important;
+            }
+        }
     }
 
     main {
@@ -46,10 +62,4 @@
         list-style: none;
     }
 
-    /*.button {
-        border: 1px solid $main-color;
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 15px;
-    }*/
 </style>

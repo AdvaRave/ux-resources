@@ -1,31 +1,60 @@
 <template>
-    <header id="header">
+    <header id="header" :class="{mobile: isMobile}">
         <div>
+            <a class="menu" v-show="isMobile" @click="mobileMenuToggle()"><i class="fas fa-bars"></i></a>
             <h1>
-                <router-link to="/">My UX & UI Resources</router-link>
+                <router-link to="/" @click.native="menuOptionUsed()">My UX & UI Resources</router-link>
             </h1>
-            <span>
+            <span v-show="!isMobile">
                 <a href="https://advarave.github.io/" target="_blank">About Me</a>
             </span>
+            <a class="filter" v-show="isMobile" @click="filterMenuToggle()"><i class="fas fa-filter"></i></a>
         </div>
-        <nav>
+        <nav v-show="!isMobile || (isMobile && mobileMenuShown)">
             <ul>
-                <li v-for="(resource, index) in resources" :key="resource.name">
-                    <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }" v-if="resource.name != 'indexes'">{{resource.caption}}</router-link>
-                </li>  
+                <li v-for="resource in resources" :key="resource.name">
+                    <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }" v-if="resource.name != 'indexes'" @click.native="menuOptionUsed()">{{resource.caption}}</router-link>
+                </li>
+                <li v-show="isMobile">
+                    <a href="https://advarave.github.io/" target="_blank">About Me</a>
+                </li>
             </ul>
         </nav>
     </header>
 </template>
 
 <script>
+    const maxMobileWidth = 1024;
+
     export default {
         name: 'siteHeader',
         data: function () {
             return {
-                resources: window.resources
+                resources: window.resources,
+                isMobile: (window.outerWidth <= maxMobileWidth),
+                mobileMenuShown: false,
+                filterShown: false
             }
-        }
+        },
+        methods: {
+            menuOptionUsed: function() {
+                this.mobileMenuShown = false;
+                document.body.classList = '';
+            },
+            mobileMenuToggle: function() {
+                this.mobileMenuShown = !this.mobileMenuShown;
+                document.body.classList = this.mobileMenuShown ? 'mobile-menu-shown' : '';
+            },
+            filterMenuToggle: function() {
+                this.mobileMenuShown = false;
+                document.body.classList = !document.body.classList.length ? 'filter-menu-shown' : '';
+            }
+        },
+        mounted() {
+            window.addEventListener('resize', function(e) {
+                this.isMobile = (e.target.outerWidth <= maxMobileWidth);
+            });
+        },
     };
 </script>
 
@@ -43,10 +72,17 @@
                 float: left;
                 font-weight: 700;
                 color: $caption-purple;
+                text-transform: uppercase;
+                font-size: 24px;
             }
 
             span {
                 float: right;
+            }
+
+            .fas {
+                font-size: 18px;
+                line-height: 30px;
             }
         }
 
@@ -64,6 +100,54 @@
 
                     a.active {
                         color: $caption-purple;
+                    }
+                }
+            }
+        }
+
+        &.mobile {
+            > div {
+                background: $caption-purple;
+                color: $white;
+                text-align: center;
+                padding: 20px;
+
+                a {
+                    color: $white;
+                    display: inline-block;
+                }
+
+                .menu {  
+                    float: left;
+                }
+
+                .filter {
+                    float: right;
+                }
+
+                h1 {
+                    font-size: 20px;
+                    float: none;
+                    display: inline-block;
+                }
+            }
+
+            nav {
+                text-align: center;
+                padding: 0;
+                width: 100vw;
+
+                ul {
+                    display: block;
+
+                    li {
+                        display: block;
+                        padding: 25px 0;
+                        border-bottom: 1px solid $light-gray;
+
+                        &:last-child {
+                            border-bottom: 0;
+                        }
                     }
                 }
             }

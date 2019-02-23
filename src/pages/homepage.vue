@@ -34,4 +34,10 @@
             display: block;
         }
     }
+
+    @media only screen and (max-width: 1024px) {
+        h2 {
+            padding: 100px 10% !important;
+        }    
+    }
 </style>
