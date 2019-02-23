@@ -12,7 +12,7 @@
         </div>
         <nav v-show="!isMobile || (isMobile && mobileMenuShown)">
             <ul>
-                <li v-for="resource in resources" :key="resource.name" v-if="resource.name != 'indexes'">
+                <li v-for="resource in resources" :key="resource.name" v-show="resource.name != 'indexes'">
                     <router-link :to="{ name: 'list', params: { name: resource.name }}" v-bind:class="{ active: $route.params.name == resource.name }" @click.native="menuOptionUsed()">{{resource.caption}}</router-link>
                 </li>
                 <li v-show="isMobile">
