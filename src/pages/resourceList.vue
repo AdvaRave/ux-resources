@@ -12,7 +12,7 @@
                         <h5>{{filter.caption}}</h5>
                         <div class="range" v-if="filter.type=='range'">
                             <label>${{filter.selectedRange[0]}} - ${{filter.selectedRange[1]}}</label>
-                            <vue-slider v-model="filter.selectedRange" :min="filter.min" :max="filter.max" :tooltip="false" :height="13" :dot-size="13" :sliderStyle="[{'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}, {'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}]" :process-style="{'backgroundColor':'#6963e0'}" @callback="filterChanged()"></vue-slider>
+                            <vue-slider :event-type="isMobile ? 'touch' : 'mouse'" v-model="filter.selectedRange" :min="filter.min" :max="filter.max" :tooltip="false" :height="13" :dot-size="13" :sliderStyle="[{'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}, {'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}]" :process-style="{'backgroundColor':'#6963e0'}" @callback="filterChanged()"></vue-slider>
                         </div>
                         <ul v-if="filter.type=='checkbox'">
                             <li v-for="option in filter.options" :key="option.name">
