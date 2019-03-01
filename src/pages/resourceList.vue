@@ -11,8 +11,14 @@
                     <li v-for="filter in resource.filters" :key="filter.name">
                         <h5>{{filter.caption}}</h5>
                         <div class="range" v-if="filter.type=='range'">
-                            <label>${{filter.selectedRange[0]}} - ${{filter.selectedRange[1]}}</label>
-                            <vue-slider :event-type="isMobile ? 'touch' : 'mouse'" v-model="filter.selectedRange" :min="filter.min" :max="filter.max" :tooltip="false" :height="13" :dot-size="13" :sliderStyle="[{'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}, {'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}]" :process-style="{'backgroundColor':'#6963e0'}" @callback="filterChanged()"></vue-slider>
+                            <div class="label">
+                                <div>
+                                    <small class="starts-with" v-show="filter.name=='price'">starts with</small>
+                                    <label>${{filter.selectedRange[0]}} - ${{filter.selectedRange[1]}}</label>
+                                </div>
+                                <small class="per-month" v-show="filter.name=='price'">(per month)</small>
+                            </div>
+                            <vue-slider v-model="filter.selectedRange" :min="filter.min" :max="filter.max" :tooltip="false" :height="13" :dot-size="13" :sliderStyle="[{'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}, {'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}]" :process-style="{'backgroundColor':'#6963e0'}" @callback="filterChanged()"></vue-slider>
                         </div>
                         <ul v-if="filter.type=='checkbox'">
                             <li v-for="option in filter.options" :key="option.name">
@@ -250,11 +256,28 @@
                     padding-bottom: 5px;
 
                     .range {
-                        label {
+                        .label {
                             position: absolute;
-                            font-size: 12px;
                             top: 12px;
                             right: 5px;
+
+                            label {
+                                font-size: 12px;                                
+                                padding-left: 5px;
+                                display: inline-block;
+                            }
+
+                            small {
+                                font-size: 10px;
+                                display: inline-block;
+
+                                &.per-month {
+                                    display: inherit;
+                                    text-align: center;
+                                    position: relative;
+                                    top: -2px;
+                                }
+                            }
                         }
                     }
 

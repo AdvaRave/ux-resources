@@ -7,6 +7,8 @@
             </h1>
             <span v-show="!isMobile">
                 <a href="https://advarave.github.io/" target="_blank">About Me</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fadvarave.github.io%2Fux-resources%2F" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//advarave.github.io/ux-resources/&title=UX%20%26%20UI%20Resources%20by%20Adva%20Rave&summary=Hello,%20I'm%20Adva%20Rave%20and%20those%20are%20my%20UX%20%26%20UI%20resources.%20Feel%20Free%20to%20use%20them.&source=https%3A//advarave.github.io/ux-resources/" target="_blank"><i class="fab fa-linkedin"></i></a>
             </span>
             <a class="filter" v-show="isMobile && $route.params.name" @click="filterMenuToggle()"><i class="fas fa-filter"></i></a>
         </div>
@@ -17,6 +19,10 @@
                 </li>
                 <li v-show="isMobile">
                     <a href="https://advarave.github.io/" target="_blank">About Me</a>
+                </li>
+                <li class="social" v-show="isMobile">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fadvarave.github.io%2Fux-resources%2F" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//advarave.github.io/ux-resources/&title=UX%20%26%20UI%20Resources%20by%20Adva%20Rave&summary=Hello,%20I'm%20Adva%20Rave%20and%20those%20are%20my%20UX%20%26%20UI%20resources.%20Feel%20Free%20to%20use%20them.&source=https%3A//advarave.github.io/ux-resources/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </li>
             </ul>
         </nav>
@@ -66,7 +72,7 @@
             overflow: hidden;
             padding: 20px 40px;
             border-bottom: 1px solid $light-gray;
-            line-height: 30px;
+            line-height: 32px;
 
             h1 {
                 float: left;
@@ -78,6 +84,15 @@
 
             span {
                 float: right;
+
+                a {
+                    margin-right: 10px;
+                }
+
+                .fab {
+                    font-size: 20px;
+                    color: $caption-purple;
+                }
             }
 
             .fas {
@@ -101,6 +116,21 @@
                     a.active {
                         color: $caption-purple;
                     }
+
+                    &.social {
+                        a {
+                            margin-right: 20px;
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
+
+                        .fab {
+                            font-size: 28px;
+                            color: $caption-purple;
+                        }
+                    }
                 }
             }
         }
@@ -110,11 +140,12 @@
                 background: $caption-purple;
                 color: $white;
                 text-align: center;
-                padding: 20px;
+                padding: 15px 10px;
 
                 a {
                     color: $white;
                     display: inline-block;
+                    padding: 0 10px;
                 }
 
                 .menu {  
