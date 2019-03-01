@@ -10,7 +10,7 @@
                 <ul>
                     <li v-for="filter in resource.filters" :key="filter.name">
                         <h5>{{filter.caption}}</h5>
-                        <div class="range" v-if="filter.type=='range'">
+                        <div class="range" v-if="filter.type=='range' && !isMobile">
                             <div class="label">
                                 <div>
                                     <small class="starts-with" v-show="filter.name=='price'">starts with</small>
@@ -19,6 +19,15 @@
                                 <small class="per-month" v-show="filter.name=='price'">(per month)</small>
                             </div>
                             <vue-slider v-model="filter.selectedRange" :min="filter.min" :max="filter.max" :tooltip="false" :height="13" :dot-size="13" :sliderStyle="[{'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}, {'box-shadow':'0.5px 0.5px 2px 1px #6963e0'}]" :process-style="{'backgroundColor':'#6963e0'}" @callback="filterChanged()"></vue-slider>
+                        </div>
+                        <div class="mobile-range" v-if="filter.type=='range' && isMobile">
+                            <label>Starts with</label>
+                            <small class="from">$</small>
+                            <input type="number" v-model="filter.selectedRange[0]">
+                            <label>to</label>
+                            <small class="to">$</small>
+                            <input type="number" v-model="filter.selectedRange[1]">
+                            <label class="per-m">(per month)</label>
                         </div>
                         <ul v-if="filter.type=='checkbox'">
                             <li v-for="option in filter.options" :key="option.name">
@@ -81,6 +90,7 @@
         methods: {
             mobileCloseFilters: function() {
                 document.body.classList = '';
+                this.filterChanged();
             },
             filterChanged: function() {
                 let newItems = [];
@@ -175,7 +185,7 @@
             .filters {
                 display: none;
                 padding: 20px 20%;
-                width: 60%;
+                width: 65%;
 
                 > a {
                     display: block;
@@ -278,6 +288,46 @@
                                     top: -2px;
                                 }
                             }
+                        }
+                    }
+
+                    .mobile-range {
+                        position: relative;
+
+                        small {
+                            font-size: 10px;
+                            position: absolute;
+                            top: 7px;
+
+                            &.from {
+                                left: 68px;
+                            }
+
+                            &.to {
+                                left: 142px;
+                            }
+                        }
+
+                        label {
+                            font-size: 12px;
+                            padding: 0 5px;
+
+                            &:first-child {
+                                padding-left: 0;
+                            }
+                        }
+
+                        input {
+                            width: 42px;
+                            text-align: center;
+                            border: 1px solid $light-gray;
+                            padding: 5px;
+                        }
+
+                        input[type=number]::-webkit-inner-spin-button, 
+                        input[type=number]::-webkit-outer-spin-button { 
+                          -webkit-appearance: none; 
+                          margin: 0; 
                         }
                     }
 

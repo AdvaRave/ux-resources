@@ -7,6 +7,7 @@
             </h1>
             <span v-show="!isMobile">
                 <a href="https://advarave.github.io/" target="_blank">About Me</a>
+                <label>Share:</label>
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fadvarave.github.io%2Fux-resources%2F" target="_blank"><i class="fab fa-facebook"></i></a>
                 <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//advarave.github.io/ux-resources/&title=UX%20%26%20UI%20Resources%20by%20Adva%20Rave&summary=Hello,%20I'm%20Adva%20Rave%20and%20those%20are%20my%20UX%20%26%20UI%20resources.%20Feel%20Free%20to%20use%20them.&source=https%3A//advarave.github.io/ux-resources/" target="_blank"><i class="fab fa-linkedin"></i></a>
             </span>
@@ -21,6 +22,7 @@
                     <a href="https://advarave.github.io/" target="_blank">About Me</a>
                 </li>
                 <li class="social" v-show="isMobile">
+                    <label>Share:</label>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fadvarave.github.io%2Fux-resources%2F" target="_blank"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//advarave.github.io/ux-resources/&title=UX%20%26%20UI%20Resources%20by%20Adva%20Rave&summary=Hello,%20I'm%20Adva%20Rave%20and%20those%20are%20my%20UX%20%26%20UI%20resources.%20Feel%20Free%20to%20use%20them.&source=https%3A//advarave.github.io/ux-resources/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </li>
@@ -89,6 +91,10 @@
                     margin-right: 10px;
                 }
 
+                label {
+                    padding: 0 10px;
+                }
+
                 .fab {
                     font-size: 20px;
                     color: $caption-purple;
@@ -119,7 +125,7 @@
 
                     &.social {
                         a {
-                            margin-right: 20px;
+                            margin-right: 12px;
 
                             &:last-child {
                                 margin-right: 0;
@@ -129,6 +135,10 @@
                         .fab {
                             font-size: 28px;
                             color: $caption-purple;
+                        }
+
+                        label {
+                            padding-right: 12px;
                         }
                     }
                 }
