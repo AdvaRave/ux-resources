@@ -263,9 +263,11 @@
 
                 > li {
                     position: relative;
-                    padding-bottom: 5px;
+                    padding: 10px 0 5px 0;
 
                     .range {
+                        margin-bottom: 5px;
+
                         .label {
                             position: absolute;
                             top: 12px;
