@@ -3,7 +3,7 @@
         <h2>
             <b>Hello,</b>
             I'm Adva Rave and these are my UX & UI resources.<br>
-            Feel Free to use them.
+            Feel free to use them.
         </h2>
         <resource-list show-resource="indexes"></resource-list>
     </div>
