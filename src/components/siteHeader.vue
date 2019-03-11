@@ -3,7 +3,7 @@
         <div>
             <a class="menu" v-show="isMobile" @click="mobileMenuToggle()"><i class="fas fa-bars"></i></a>
             <h1>
-                <router-link to="/" @click.native="menuOptionUsed()">My UX & UI Resources</router-link>
+                <router-link to="/" @click.native="menuOptionUsed()"></router-link>
             </h1>
             <span v-show="!isMobile">
                 <a href="https://advarave.github.io/" target="_blank">About Me</a>
@@ -78,10 +78,16 @@
 
             h1 {
                 float: left;
-                font-weight: 700;
-                color: $caption-purple;
-                text-transform: uppercase;
-                font-size: 24px;
+                
+                a {
+                    display: inline-block;
+                    background-image: url('../assets/ux-space.svg');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 32px;
+                    width: 150px;
+                }
             }
 
             span {
@@ -152,10 +158,15 @@
                 text-align: center;
                 padding: 15px 10px;
 
-                a {
-                    color: $white;
+                h1 {
+                    float: none;
                     display: inline-block;
-                    padding: 0 10px;
+                    vertical-align: middle;
+                    height: 32px;
+
+                    a {
+                        background-image: url('../assets/ux-space-white.svg');
+                    }
                 }
 
                 .menu {  
@@ -164,12 +175,6 @@
 
                 .filter {
                     float: right;
-                }
-
-                h1 {
-                    font-size: 20px;
-                    float: none;
-                    display: inline-block;
                 }
             }
 
