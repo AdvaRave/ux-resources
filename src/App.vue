@@ -4,6 +4,7 @@
         <main>
            <router-view :key="$route.path"></router-view>
         </main>
+        <a class="subscribe" :class="{mobile: isMobile}" @click="openSubscribe()" title="Subscribe"><i class="fas fa-rss-square"></i></a>
     </div>
 </template>
 
@@ -14,6 +15,18 @@
         name: 'app',
         components: {
             'site-header': siteHeader
+        },
+        data: function () {
+            return {
+                isMobile: (window.outerWidth <= 1024)
+            }
+        },
+        methods: {
+            openSubscribe: function() {
+                var subscribeClassList = document.querySelector('.sp-form-outer').classList;
+                subscribeClassList.add('sp-show');
+                subscribeClassList.remove('sp-hide');
+            }
         }
     };
 </script>
@@ -60,6 +73,23 @@
 
     ul {
         list-style: none;
+    }
+
+    .subscribe {
+        position: fixed;
+        bottom: 30px;
+        right: 40px;
+        font-size: 34px;
+        color: $caption-purple;
+
+        &.mobile {
+            bottom: 5px;
+            right: 15px;
+        }
+
+        &:hover {
+            color: $caption-purple;
+        }
     }
 
 </style>
